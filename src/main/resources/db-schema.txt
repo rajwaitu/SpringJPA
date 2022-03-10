@@ -1,0 +1,43 @@
+create database springjpa_db;
+
+CREATE TABLE springjpa_db.author (
+    id bigint(20) NOT NULL auto_increment,
+    name varchar(255),
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE springjpa_db.tag (
+    id bigint(20) NOT NULL auto_increment,
+    name varchar(255),
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE springjpa_db.post (
+    id bigint(20) NOT NULL auto_increment,
+    title varchar(255),
+	description varchar(255),
+    created datetime,
+    author_id bigint(20),
+    PRIMARY KEY (id),
+    FOREIGN KEY (author_id) REFERENCES author(id)
+);
+
+CREATE TABLE springjpa_db.comment (
+    id bigint(20) NOT NULL auto_increment,
+	description varchar(255),
+    created datetime,
+    author_id bigint(20),
+    post_id bigint(20),
+    PRIMARY KEY (id),
+    FOREIGN KEY (author_id) REFERENCES author(id),
+    FOREIGN KEY (post_id) REFERENCES post(id)
+);
+
+CREATE TABLE springjpa_db.post_tag (
+    id bigint(20) NOT NULL auto_increment,
+    post_id bigint(20),
+    tag_id bigint(20),
+    PRIMARY KEY (id),
+    FOREIGN KEY (post_id) REFERENCES post(id),
+    FOREIGN KEY (tag_id) REFERENCES tag(id)
+);
